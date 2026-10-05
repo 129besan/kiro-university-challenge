@@ -1,0 +1,15 @@
+# Python 3.14 Overview & Key Highlights
+
+Python 3.14 introduces several impactful enhancements for modern application development:
+
+1. Enhanced Error Messages & Tracebacks
+Error reporting now pinpoints exact expressions causing exceptions, making debugging faster in large frameworks like FastAPI and Streamlit.
+
+2. Deferred Evaluation of Annotations (PEP 649)
+Type annotations are stored in functions and classes without immediate runtime evaluation until accessed, improving import startup times and resolving circular reference issues.
+
+3. Standard Library Performance Improvements
+Multiple core modules including json, asyncio, and math receive internal C-level optimizations, reducing serialization overhead and asynchronous context switching latency.
+
+4. Free-threaded Python (No-GIL) Ecosystem Maturity
+Building upon the experimental free-threaded build introduced in 3.13, Python 3.14 delivers broader C-extension compatibility and improved memory management for true multi-core parallel workloads.

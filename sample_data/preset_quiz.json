@@ -1,0 +1,42 @@
+{
+  "title": "Python 3.14 Key Features Quiz",
+  "source_topic": "Python 3.14 Highlights",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary benefit of Deferred Evaluation of Annotations (PEP 649)?",
+      "choices": [
+        "Faster startup times and cleaner circular reference handling",
+        "Automatic conversion of Python code to C++",
+        "Disabling all runtime type checking completely",
+        "Replacing standard dict with compiled hash tables"
+      ],
+      "correct_index": 0,
+      "explanation": "PEP 649 defers evaluation of type annotations until accessed, minimizing import overhead and avoiding circular import errors."
+    },
+    {
+      "id": 2,
+      "question": "Which aspect of the free-threaded (No-GIL) ecosystem received major improvements in Python 3.14?",
+      "choices": [
+        "Removal of the garbage collector",
+        "Broader C-extension compatibility and improved memory management",
+        "Mandatory requirement for 64 cores",
+        "Deprecation of the asyncio library"
+      ],
+      "correct_index": 1,
+      "explanation": "Python 3.14 matures the free-threaded build by expanding C-extension support and optimizing memory management for parallel tasks."
+    },
+    {
+      "id": 3,
+      "question": "How did error reporting improve in Python 3.14?",
+      "choices": [
+        "Errors are automatically sent to cloud logging services",
+        "Exceptions no longer halt program execution",
+        "Tracebacks pinpoint the exact expression causing the issue",
+        "All error messages are translated into binary bytecode"
+      ],
+      "correct_index": 2,
+      "explanation": "Enhanced error messages and tracebacks now pinpoint the specific expression that caused the exception."
+    }
+  ]
+}

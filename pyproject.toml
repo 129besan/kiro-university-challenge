@@ -3,12 +3,15 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "changelens"
+name = "quickquiz-studio"
 version = "0.1.0"
-description = "Human-readable comparison of old and new documents"
+description = "Interactive quiz generator and study studio built with Streamlit"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["streamlit==1.65.0"]
+dependencies = [
+    "streamlit==1.65.0",
+    "requests==2.34.2",
+]
 
 [project.optional-dependencies]
 dev = ["pytest==9.1.1", "hypothesis==6.168.3"]

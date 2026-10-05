@@ -15,13 +15,13 @@
 
 | Lesson | 状態 | 設定・成果物 | 実使用の確認 |
 | --- | --- | --- | --- |
-| 1 Specs | 未実施 | `.kiro/specs/changelens-mvp/` | IDEで3文書を生成し、MVP実装でSpec taskを使った記録 |
-| 2 Steering | 未実施 | `.kiro/steering/` | 作成した方針がKiroの型付き・UI分離の実装に反映された例 |
+| 1 Specs | 未実施 | `.kiro/specs/quiz-studio/` | IDEで3文書（requirements, design, tasks）を生成した記録 |
+| 2 Steering | 未実施 | `.kiro/steering/` | 作成した方針（型定義、Streamlit規約）がKiroの実装に反映された例 |
 | 3 Hooks | 未実施 | `.kiro/hooks/` | Python変更イベント、Hookのpytest実行、結果 |
-| 4 PBT | 未実施 | `tests/test_properties.py` | Kiro IDEによるHypothesisの生成・実行・失敗時の修正 |
-| 5 Powers | 未実施 | 導入したPower名・出典・利用記録 | 実行したPowerと、開発にどう役立ったか |
-| 6 MCP | 未実施 | `.kiro/settings/mcp.json`、取得資料の出典 | Kiroからの実際のtool名・引数・成功結果と利用先 |
-| 7 Custom agents | 未実施 | `.kiro/agents/`、レビュー記録 | `diff-reviewer`選択、実コードへの指摘、反映したcommit |
+| 4 PBT | 未実施 | `tests/test_properties.py` | Kiro IDEによるHypothesisの生成・実行・パス確認 |
+| 5 Powers | 未実施 | 導入したPower名・利用記録 | 実行したPowerと、開発にどう役立ったか |
+| 6 MCP | 未実施 | `.kiro/settings/mcp.json` | KiroからのMCPツール（Webフェッチ等）呼び出しと利用先 |
+| 7 Custom agents | 未実施 | `.kiro/agents/`、レビュー記録 | `quiz-reviewer`選択、クイズ品質への指摘、反映したcommit |
 
 ## 実行ログ
 

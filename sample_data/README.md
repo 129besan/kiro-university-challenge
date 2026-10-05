@@ -1,17 +1,20 @@
-# 比較用サンプル
+# QuickQuiz Studio Sample Data
 
-`event_old.txt` と `event_new.txt` は、このプロジェクト用に作成した架空のイベント案内です。URLは例示用で、外部サイトから取得した文書ではありません。
+This directory contains reference and offline demonstration data for QuickQuiz Studio.
 
-| 種別 | 旧版 | 新版 |
-| --- | --- | --- |
-| 日付 | 申込期限: 10月10日 | 申込期限: 10月15日 |
-| 金額 | 参加費: 1,000円 | 参加費: 1,500円 |
-| 数値 | 定員: 30名 | 定員: 50名 |
-| 文言 | 会場: 第一会議室 | 会場: 第二会議室 |
-| URL | https://example.org/workshop/v1 | https://example.org/workshop/v2 |
-| 削除 | 注意事項: 当日受付は行いません。 | — |
-| 追加 | — | 特典: 参加者に資料を配布します。 |
+## Files
 
-同一文書のケースは旧版を両方に入力して確認します。空入力のケースは片方を空にして確認します。
+- `sample_article.txt`: A sample technical article describing Python 3.14 features. Used as sample text input or MCP web-fetch demonstration target.
+- `preset_quiz.json`: A pre-generated, verified 3-question quiz in standard QuickQuiz JSON schema. Allows instant offline execution during demonstrations without external API latency.
 
-このサンプルはMCP利用の証拠には数えません。MCP経由の公開資料取得は別のKiro工程で実施し、出典・取得日・実行記録を残します。
+## Quiz Schema Requirements
+
+Each quiz object must adhere to the following structure:
+- `title` (str): Quiz title.
+- `source_topic` (str): Origin article or topic name.
+- `questions` (list): Array of question objects.
+  - `id` (int): Unique question identifier.
+  - `question` (str): Question prompt.
+  - `choices` (list[str]): Exactly 4 unique answer choices.
+  - `correct_index` (int): 0-indexed integer pointing to the correct choice (0 <= index <= 3).
+  - `explanation` (str): Educational rationale explaining why the correct choice is valid.

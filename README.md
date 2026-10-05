@@ -1,22 +1,24 @@
-# ChangeLens
+# QuickQuiz Studio 🎓
 
-旧文書と新文書を比較し、期限・料金・定員などの重要な変更を見つけやすくするWebアプリです。募集要項、イベント案内、READMEなどを想定しています。
+QuickQuiz Studio is an interactive AI study & quiz generator built with Streamlit. It transforms technical articles, documentation, or topic notes into engaging 4-choice interactive quizzes with instant grading, visual progress tracking, and detailed explanations.
 
-**開発状況:** 開発環境とサンプルを準備済みです。アプリ本体はKiroによるSpec作成後に実装します。
+Built with **Kiro** for the **Kiro University Challenge** (AWS).
 
-目標とする表示:
+---
 
-```text
-変更  申込期限: 10月10日 → 10月15日  [日付]
-変更  参加費: 1,000円 → 1,500円      [金額]
-変更  定員: 30名 → 50名              [数値]
-```
+## Features
 
-Python、Streamlit、標準ライブラリのdifflibを使います。UIは`app.py`、比較と抽出のロジックは`src/`に分離します。外部LLM APIやDBは使用しません。固有名詞は文言の変更として表示し、自動の意味理解は前提にしません。
+- **Interactive Quiz Player**: Answer multiple-choice questions with dynamic radio selections, instant score cards, and congratulatory animations.
+- **Instant Offline Preset Mode**: Zero-latency preset loading for smooth demonstration and offline testing without API overhead.
+- **AI-Powered Generation (OpenRouter / Gemini compatible)**: Real-time generation from custom text or URLs via configurable API keys.
+- **Educational Explanations**: Detailed reasoning for each answer to reinforce learning.
+- **Robust & Type-Safe Core**: Business logic and grading completely separated from UI, verified by unit tests and property-based testing (Hypothesis).
 
-## 開発環境
+---
 
-Python 3.10以上。現在の確認対象はPython 3.14.7です。
+## Quick Start
+
+### 1. Setup Environment
 
 ```bash
 python3 -m venv .venv
@@ -24,64 +26,40 @@ source .venv/bin/activate
 python -m pip install -e '.[dev]'
 ```
 
-Python 3.14.7でStreamlit 1.65.0、pytest 9.1.1、Hypothesis 6.168.3の導入・importと`pip check`の成功を確認しました。アプリの動作・テストはまだ未検証です。
-
-直接依存の確認済みバージョンは`pyproject.toml`、推移的な依存まで含む確認環境は`requirements.lock.txt`に記録しています。確認環境を揃える場合はlockファイルを先にインストールします。
-
-```bash
-python -m pip install -r requirements.lock.txt
-python -m pip install -e '.[dev]' --no-deps
-```
-
-MVP実装後の起動・テストコマンド:
+### 2. Run Application
 
 ```bash
 python -m streamlit run app.py
+```
+
+### 3. Run Tests
+
+```bash
+# Unit & Property-based tests
 python -m pytest
 ```
 
-現時点では`app.py`とテストは未作成です。起動・テストの成功は実装後に記録します。
+---
 
-## サンプル
+## Kiro University Challenge Implementation Status
 
-[旧版](sample_data/event_old.txt)と[新版](sample_data/event_new.txt)に、期限・金額・人数・URL・会場の変更、行の追加と削除を含めています。架空のデータです。[想定変更一覧](sample_data/README.md)を使って動作を確認します。
+This repository demonstrates the complete 7-lesson syllabus of the Kiro University Challenge:
 
-## 開発と提出
+| Lesson | Topic | Configuration / Artifact | Status |
+| :--- | :--- | :--- | :---: |
+| **Lesson 1** | **Spec-driven development** | `.kiro/specs/quiz-studio/` (`requirements.md`, `design.md`, `tasks.md` in EARS syntax) | In Progress |
+| **Lesson 2** | **Steering documents** | `.kiro/steering/coding-standards.md` (Type safety, state management, UI separation) | Planned |
+| **Lesson 3** | **Hooks** | `.kiro/hooks/run-tests-on-save.json` (Automated pytest trigger on save) | Planned |
+| **Lesson 4** | **Property-based testing** | `tests/test_properties.py` (Hypothesis invariant validation for score & schema) | Planned |
+| **Lesson 5** | **Powers** | Kiro Power integration (Context & tool usage recorded in docs) | Planned |
+| **Lesson 6** | **MCP** | `.kiro/settings/mcp.json` (Web Fetch MCP integration for article sourcing) | Planned |
+| **Lesson 7** | **Custom agents** | `.kiro/agents/quiz-reviewer.json` (Automated quiz quality & hallucination reviewer) | Planned |
 
-KiroがSpec、Steering、MVPの主要実装、Hook、Property-based tests、Power、MCP、Custom Agentを担当します。Codexは事前準備、検証、原因分析、Git操作、ドキュメント整備を担当します。
+---
 
-- [開発手順と提出チェック](docs/development-plan.md)
-- [Kiro実施記録](docs/kiro-usage.md)
-- [最初にKiroへ渡すSpec作成プロンプト](docs/kiro-task-01-spec.md)
+## Architecture
 
-## Kiro University Challenge
-
-以下は実施状況です。ファイルの存在だけでは完了とせず、Kiroでの実行を確認して更新します。
-
-### Lesson 1: Specs
-
-未実施。Kiro IDEでrequirements/design/tasksを生成し、MVP実装で利用します。
-
-### Lesson 2: Steering
-
-未実施。Kiroが作成した開発方針をMVP実装に反映します。
-
-### Lesson 3: Hooks
-
-未実施。Python変更時にpytestを実行するHookをKiroで作成し、一度発火させます。
-
-### Lesson 4: Property-based testing
-
-未実施。Kiro IDEでHypothesisのテストを生成・実行し、失敗した場合は修正します。
-
-### Lesson 5: Powers
-
-未実施。ChangeLensの開発に適したPowerを導入・利用し、利用前後を記録します。
-
-### Lesson 6: MCP
-
-未実施。Kiroから公開資料を実際に取得し、仕様確認またはサンプル作成に利用します。
-
-### Lesson 7: Custom agents
-
-未実施。Kiroで`diff-reviewer`を作成し、レビュー結果を少なくとも1件反映します。
+- `app.py`: Streamlit frontend UI, reactive session state, quiz navigation, and score presentation.
+- `src/quiz_engine.py`: Pure, side-effect-free business logic for quiz parsing, score calculation, and schema validation.
+- `sample_data/`: Verified sample articles and pre-built quiz presets for reliable demonstration.
+- `tests/`: Pytest suite including example-based test cases and Hypothesis property invariants.
