@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-fetch"
+      ],
+      "description": "Model Context Protocol server to fetch external technical documentation and articles for automated quiz generation."
+    }
+  }
+}

@@ -148,13 +148,13 @@ requirements.md と design.md に基づき、QuickQuiz Studio MVP を段階的�
 - [x] 8. Checkpoint — プロパティテストの確認
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Power/MCP 連携（Lesson 5 & 6）
-  - [ ] 9.1 `.kiro/settings/mcp.json` に Web Fetch MCP の設定を追加する
+- [x] 9. Power/MCP 連携（Lesson 5 & 6）
+  - [x] 9.1 `.kiro/settings/mcp.json` に Web Fetch MCP の設定を追加する
     - MCP サーバー設定を JSON 形式で記述する
     - _Requirements: （将来の URL 取得拡張のための基盤）_
 
-- [ ] 10. Custom Agent によるクイズ品質レビュー（Lesson 7）
-  - [ ] 10.1 `.kiro/agents/quiz-reviewer.json` を作成する
+- [x] 10. Custom Agent によるクイズ品質レビュー（Lesson 7）
+  - [x] 10.1 `.kiro/agents/quiz-reviewer.json` を作成する
     - クイズ品質・ハルシネーション検出レビューエージェントの設定を記述する
     - レビュー対象フィールド（`question`・`choices`・`explanation`）と評価基準を定義する
     - _Requirements: 1.2, 5.3_
