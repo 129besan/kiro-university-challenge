@@ -16,7 +16,7 @@
 | Lesson | 状態 | 設定・成果物 | 実使用の確認 |
 | --- | --- | --- | --- |
 | 1 Specs | 実施済み | `.kiro/specs/quiz-studio/` | IDEで3文書（requirements, design, tasks）を生成。commit: 74fdce6 |
-| 2 Steering | 未実施 | `.kiro/steering/` | 作成した方針（型定義、Streamlit規約）がKiroの実装に反映された例 |
+| 2 Steering | 実施済み | `.kiro/steering/coding-standards.md` | 型安全・UI分離の規約作成、MVP実装（app.py, src/quiz_engine.py, 43 pytest通過）。commit: 2f73ee4 |
 | 3 Hooks | 未実施 | `.kiro/hooks/` | Python変更イベント、Hookのpytest実行、結果 |
 | 4 PBT | 未実施 | `tests/test_properties.py` | Kiro IDEによるHypothesisの生成・実行・パス確認 |
 | 5 Powers | 未実施 | 導入したPower名・利用記録 | 実行したPowerと、開発にどう役立ったか |
