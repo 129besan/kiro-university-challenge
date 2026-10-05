@@ -15,7 +15,7 @@
 
 | Lesson | 状態 | 設定・成果物 | 実使用の確認 |
 | --- | --- | --- | --- |
-| 1 Specs | 未実施 | `.kiro/specs/quiz-studio/` | IDEで3文書（requirements, design, tasks）を生成した記録 |
+| 1 Specs | 実施済み | `.kiro/specs/quiz-studio/` | IDEで3文書（requirements, design, tasks）を生成。commit: 74fdce6 |
 | 2 Steering | 未実施 | `.kiro/steering/` | 作成した方針（型定義、Streamlit規約）がKiroの実装に反映された例 |
 | 3 Hooks | 未実施 | `.kiro/hooks/` | Python変更イベント、Hookのpytest実行、結果 |
 | 4 PBT | 未実施 | `tests/test_properties.py` | Kiro IDEによるHypothesisの生成・実行・パス確認 |
