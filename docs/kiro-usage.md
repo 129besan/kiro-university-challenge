@@ -17,8 +17,8 @@
 | --- | --- | --- | --- |
 | 1 Specs | 実施済み | `.kiro/specs/quiz-studio/` | IDEで3文書（requirements, design, tasks）を生成。commit: 74fdce6 |
 | 2 Steering | 実施済み | `.kiro/steering/coding-standards.md` | 型安全・UI分離の規約作成、MVP実装（app.py, src/quiz_engine.py, 43 pytest通過）。commit: 2f73ee4 |
-| 3 Hooks | 未実施 | `.kiro/hooks/` | Python変更イベント、Hookのpytest実行、結果 |
-| 4 PBT | 未実施 | `tests/test_properties.py` | Kiro IDEによるHypothesisの生成・実行・パス確認 |
+| 3 Hooks | 実施済み | `.kiro/hooks/run-tests-on-save.json` | PostFileSaveトリガーでpytestを自動実行するフック設定。commit: 46a7e42 |
+| 4 PBT | 実施済み | `tests/test_properties.py` | Hypothesisによる17プロパティテスト（不変条件検証）全PASS。commit: 46a7e42 |
 | 5 Powers | 未実施 | 導入したPower名・利用記録 | 実行したPowerと、開発にどう役立ったか |
 | 6 MCP | 未実施 | `.kiro/settings/mcp.json` | KiroからのMCPツール（Webフェッチ等）呼び出しと利用先 |
 | 7 Custom agents | 未実施 | `.kiro/agents/`、レビュー記録 | `quiz-reviewer`選択、クイズ品質への指摘、反映したcommit |

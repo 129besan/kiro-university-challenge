@@ -49,8 +49,8 @@ This repository demonstrates the complete 7-lesson syllabus of the Kiro Universi
 | :--- | :--- | :--- | :---: |
 | **Lesson 1** | **Spec-driven development** | `.kiro/specs/quiz-studio/` (`requirements.md`, `design.md`, `tasks.md` in EARS syntax) | Completed |
 | **Lesson 2** | **Steering documents** | `.kiro/steering/coding-standards.md` (Type safety, state management, UI separation) | Completed |
-| **Lesson 3** | **Hooks** | `.kiro/hooks/run-tests-on-save.json` (Automated pytest trigger on save) | Planned |
-| **Lesson 4** | **Property-based testing** | `tests/test_properties.py` (Hypothesis invariant validation for score & schema) | Planned |
+| **Lesson 3** | **Hooks** | `.kiro/hooks/run-tests-on-save.json` (Automated pytest trigger on save) | Completed |
+| **Lesson 4** | **Property-based testing** | `tests/test_properties.py` (Hypothesis invariant validation for score & schema) | Completed |
 | **Lesson 5** | **Powers** | Kiro Power integration (Context & tool usage recorded in docs) | Planned |
 | **Lesson 6** | **MCP** | `.kiro/settings/mcp.json` (Web Fetch MCP integration for article sourcing) | Planned |
 | **Lesson 7** | **Custom agents** | `.kiro/agents/quiz-reviewer.json` (Automated quiz quality & hallucination reviewer) | Planned |
