@@ -73,6 +73,7 @@ Rules:
 - Exactly 4 choices per question.
 - correct_index must be an integer between 0 and 3.
 - Questions must be factual and directly test understanding of the article.
+- LANGUAGE RULE: Write the quiz (title, questions, choices, explanations) in the EXACT SAME language as the source article text. If the article is in English, write 100% in English. If the article is in Japanese, write 100% in Japanese. Do NOT mix languages.
 """
 
     headers = {
@@ -138,33 +139,47 @@ def _generate_via_heuristic(title: str, text: str, source_url: str) -> QuizSet:
     selected = candidates[:3]
     questions: list[Quiz] = []
 
-    for i, sentence in enumerate(selected, start=1):
-        # Create an engaging question from the sentence
-        if "クレジット" in sentence or "credit" in sentence.lower():
-            q_text = f"【問題 {i}】この記事で言及されているクレジットや特典の条件として正しいものはどれですか？"
-            correct_choice = f"{sentence[:70]}..."
-            wrong_choices = [
-                "すべての参加者に無条件で全額の現金が支給される",
-                "有料プランへの課金のみが獲得の唯一の条件である",
-                "事前の登録なしで自動的にポイントが付与される"
-            ]
-        elif "レッスン" in sentence or "lesson" in sentence.lower() or "提出" in sentence:
-            q_text = f"【問題 {i}】この記事に記載された課題・要件についての正しい記述はどれですか？"
-            correct_choice = f"{sentence[:70]}..."
-            wrong_choices = [
-                "静的なモックアップ画像のみの提出で合格となる",
-                "SNSへの投稿や動画の提出は一切不要である",
-                "過去に作成済みの既存プロジェクトをそのまま提出できる"
-            ]
-        else:
-            q_text = f"【問題 {i}】記事「{title[:30]}...」の要点として最も適切なものはどれですか？"
-            correct_choice = f"{sentence[:70]}..."
-            wrong_choices = [
-                "公式仕様とは無関係な第三者による非公式推測情報",
-                "将来的に廃止される予定の非推奨な機能群",
-                "特定の古いOS環境でのみ動作する実験的ツール"
-            ]
+    # Detect language of source text
+    is_japanese = bool(re.search(r"[\u3040-\u30ff\u4e00-\u9fff]", text[:500]))
 
+    for i, sentence in enumerate(selected, start=1):
+        if is_japanese:
+            # Japanese question generation
+            if "クレジット" in sentence or "credit" in sentence.lower():
+                q_text = f"【問題 {i}】この記事で言及されているクレジットや特典の条件として正しいものはどれですか？"
+                wrong_choices = [
+                    "すべての参加者に無条件で全額の現金が支給される",
+                    "有料プランへの課金のみが獲得の唯一の条件である",
+                    "事前の登録なしで自動的にポイントが付与される",
+                ]
+            elif "レッスン" in sentence or "lesson" in sentence.lower() or "提出" in sentence:
+                q_text = f"【問題 {i}】この記事に記載された課題・要件についての正しい記述はどれですか？"
+                wrong_choices = [
+                    "静的なモックアップ画像のみの提出で合格となる",
+                    "SNSへの投稿や動画の提出は一切不要である",
+                    "過去に作成済みの既存プロジェクトをそのまま提出できる",
+                ]
+            else:
+                q_text = f"【問題 {i}】記事「{title[:30]}...」の要点として最も適切なものはどれですか？"
+                wrong_choices = [
+                    "公式仕様とは無関係な第三者による非公式推測情報",
+                    "将来的に廃止される予定の非推奨な機能群",
+                    "特定の古いOS環境でのみ動作する実験的ツール",
+                ]
+            explanation_text = f"記事本文より: 「{sentence}」に基づいています。"
+            quiz_title = f"{title[:40]} クイズ"
+        else:
+            # English question generation
+            q_text = f"[Question {i}] Based on the article \"{title[:35]}...\", which statement is accurate?"
+            wrong_choices = [
+                "This capability was permanently deprecated in legacy editions.",
+                "This specification is strictly intended for proprietary enterprise clouds.",
+                "This component runs only under unsupported experimental runtime environments.",
+            ]
+            explanation_text = f"Source reference from article: \"{sentence}\""
+            quiz_title = f"{title[:40]} Quiz"
+
+        correct_choice = f"{sentence[:70]}..."
         choices = [
             correct_choice,
             wrong_choices[0],
@@ -181,13 +196,13 @@ def _generate_via_heuristic(title: str, text: str, source_url: str) -> QuizSet:
             question=q_text,
             choices=choices,
             correct_index=target_idx,
-            explanation=f"記事本文より: 「{sentence}」に基づいています。",
+            explanation=explanation_text,
         )
         validate_quiz(quiz)
         questions.append(quiz)
 
     quiz_set = QuizSet(
-        title=f"{title[:40]} クイズ",
+        title=quiz_title,
         source_topic=title[:60],
         questions=questions,
     )
