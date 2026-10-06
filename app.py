@@ -26,8 +26,15 @@ from src.quiz_engine import (
     calculate_score,
     parse_quiz_set,
 )
-from src.web_fetcher import fetch_article_content
+import importlib
+import src.generator
+import src.web_fetcher
+
+importlib.reload(src.generator)
+importlib.reload(src.web_fetcher)
+
 from src.generator import generate_quiz_from_text
+from src.web_fetcher import fetch_article_content
 
 # ---------------------------------------------------------------------------
 # Constants
