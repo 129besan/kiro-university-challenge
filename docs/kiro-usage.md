@@ -19,9 +19,9 @@
 | 2 Steering | 実施済み | `.kiro/steering/coding-standards.md` | 型安全・UI分離の規約作成、MVP実装（app.py, src/quiz_engine.py, 43 pytest通過）。commit: 2f73ee4 |
 | 3 Hooks | 実施済み | `.kiro/hooks/run-tests-on-save.json` | PostFileSaveトリガーでpytestを自動実行するフック設定。commit: 46a7e42 |
 | 4 PBT | 実施済み | `tests/test_properties.py` | Hypothesisによる17プロパティテスト（不変条件検証）全PASS。commit: 46a7e42 |
-| 5 Powers | 準備完了 | Powerカタログ参照・Webフェッチ利用ログ | Python/Web Power有効化、ツール呼び出しを記録 |
+| 5 Powers | 実施済み | `.kiro/powers/web-quiz-power/` | Web Fetcher MCPとAgent、Steeringをパッケージ化したKiro Power定義。commit: 51e170c |
 | 6 MCP | 実施済み | `.kiro/settings/mcp.json` | Web Fetch MCP設定（npx @modelcontextprotocol/server-fetch）。commit: 85acfa4 |
-| 7 Custom agents | 実施済み | `.kiro/agents/quiz-reviewer.json` | クイズ品質・ハルシネーション校正エージェント定義。commit: 85acfa4 |
+| 7 Custom agents | 実施済み | `.kiro/agents/quiz-reviewer.json` | クイズ品質・ハルシネーション校正エージェント（review/fixコマンド付き）。commit: 51e170c |
 
 ## 実行ログ
 
