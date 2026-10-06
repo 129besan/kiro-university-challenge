@@ -26,6 +26,8 @@ from src.quiz_engine import (
     calculate_score,
     parse_quiz_set,
 )
+from src.web_fetcher import fetch_article_content
+from src.generator import generate_quiz_from_text
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -113,7 +115,23 @@ def load_preset_quiz() -> QuizSet | None:
 
 
 def render_mode_selection() -> None:
-    """Landing page — let the user choose a quiz mode (MVP: preset only)."""
+    """Landing page — let the user choose a quiz mode."""
+    # Sidebar configurations
+    with st.sidebar:
+        st.header("⚙️ Studio Settings")
+        api_key = st.text_input(
+            "OpenRouter API Key (Optional)",
+            type="password",
+            help="Optional: Enter an API key for high-end LLM generation. If omitted, built-in heuristic extractor will generate quizzes instantly for free.",
+        )
+        st.session_state["api_key"] = api_key
+
+        st.divider()
+        st.subheader("⚡ Kiro Capabilities")
+        st.success("Power: `web-quiz-power` Active")
+        st.info("MCP: `fetch` tool enabled")
+        st.info("Agent: `@quiz-reviewer` ready")
+
     st.title("🎓 QuickQuiz Studio")
     st.markdown(
         "Transform technical articles into interactive 4-choice quizzes "
@@ -121,25 +139,82 @@ def render_mode_selection() -> None:
     )
     st.divider()
 
-    st.subheader("Choose a quiz mode")
+    tab_url, tab_preset, tab_text = st.tabs([
+        "🌐 Fetch from Blog URL",
+        "⚡ Instant Preset",
+        "📝 Paste Article Text",
+    ])
 
-    col1, col2 = st.columns([1, 2])
-    with col1:
-        if st.button("⚡ Preset Quiz", use_container_width=True, type="primary"):
+    with tab_url:
+        st.subheader("Generate Quiz from Live Technical Blog")
+        st.write("Enter a public article URL. The system will fetch the content and automatically build a 4-choice quiz.")
+
+        # Preset suggestion buttons for 1-click video demo
+        col_btn1, col_btn2 = st.columns(2)
+        target_url = "https://aws.amazon.com/jp/blogs/news/kiro-university-challenge/"
+        with col_btn1:
+            if st.button("📌 Example: AWS Kiro Challenge Blog", use_container_width=True):
+                st.session_state["input_url"] = target_url
+        with col_btn2:
+            if st.button("📌 Example: Python 3.14 Highlights", use_container_width=True):
+                st.session_state["input_url"] = "https://docs.python.org/3/whatsnew/3.14.html"
+
+        input_url = st.text_input(
+            "Article or Blog URL",
+            value=st.session_state.get("input_url", target_url),
+            placeholder="https://example.com/blog/article",
+        )
+
+        if st.button("🚀 Generate Quiz from URL", type="primary", use_container_width=True):
+            if not input_url.strip():
+                st.error("Please enter a valid URL.")
+            else:
+                with st.spinner("Fetching article and synthesizing quiz..."):
+                    try:
+                        title, body = fetch_article_content(input_url.strip())
+                        quiz_set = generate_quiz_from_text(
+                            title=title,
+                            text=body,
+                            api_key=st.session_state.get("api_key"),
+                            source_url=input_url.strip(),
+                        )
+                        st.session_state["quiz_set"] = quiz_set
+                        st.session_state["page"] = PAGE_QUIZ
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Failed to generate quiz: {e}")
+
+    with tab_preset:
+        st.subheader("Offline Preset Mode")
+        st.write("Loads the verified local preset (`sample_data/preset_quiz.json`) instantly without network requests.")
+        if st.button("⚡ Load Preset Quiz", type="secondary", use_container_width=True):
             quiz_set = load_preset_quiz()
             if quiz_set is not None:
                 st.session_state["quiz_set"] = quiz_set
                 st.session_state["page"] = PAGE_QUIZ
                 st.rerun()
 
-    with col2:
-        st.info(
-            "**Preset mode** loads a pre-built quiz instantly — "
-            "no network required, perfect for demos and offline use."
+    with tab_text:
+        st.subheader("Paste Custom Documentation Text")
+        custom_title = st.text_input("Article Title", value="My Technical Notes")
+        custom_text = st.text_area(
+            "Article Content",
+            height=200,
+            placeholder="Paste technical documentation or notes here...",
         )
-
-    st.divider()
-    st.caption("AI-powered generation (OpenRouter / Gemini) — coming soon 🚀")
+        if st.button("Generate from Text", type="secondary", use_container_width=True):
+            if len(custom_text.strip()) < 50:
+                st.warning("Please provide at least 50 characters of technical text.")
+            else:
+                with st.spinner("Analyzing text and creating quiz..."):
+                    quiz_set = generate_quiz_from_text(
+                        title=custom_title,
+                        text=custom_text,
+                        api_key=st.session_state.get("api_key"),
+                    )
+                    st.session_state["quiz_set"] = quiz_set
+                    st.session_state["page"] = PAGE_QUIZ
+                    st.rerun()
 
 
 # ---------------------------------------------------------------------------

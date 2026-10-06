@@ -1,0 +1,21 @@
+{
+  "name": "web-quiz-power",
+  "version": "1.0.0",
+  "displayName": "Web Article Quiz Generator Power",
+  "description": "A reusable Kiro Power that bundles Web Fetch MCP, Quiz Steering rules, and the Quiz Reviewer custom agent to turn any technical blog into an interactive study quiz.",
+  "author": "QuickQuiz Studio Team",
+  "capabilities": {
+    "mcp": [
+      "fetch"
+    ],
+    "agents": [
+      "quiz-reviewer"
+    ],
+    "steering": [
+      ".kiro/steering/coding-standards.md"
+    ],
+    "hooks": [
+      ".kiro/hooks/run-tests-on-save.json"
+    ]
+  }
+}
