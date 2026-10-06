@@ -20,23 +20,31 @@ def generate_quiz_from_text(
     text: str,
     api_key: str | None = None,
     source_url: str = "Web Article",
+    model: str = "nvidia/llama-3.1-nemotron-70b-instruct:free",
 ) -> QuizSet:
     """Generate a QuizSet from article text.
 
-    If api_key is provided, attempts LLM-based generation via OpenRouter.
+    If api_key is provided, attempts LLM-based generation via OpenRouter using the selected model.
     Otherwise, uses an intelligent heuristic extractor to build a 3-question quiz.
     """
     if api_key and api_key.strip():
         try:
-            return _generate_via_llm(title, text, api_key.strip(), source_url)
-        except Exception:
+            return _generate_via_llm(title, text, api_key.strip(), source_url, model=model)
+        except Exception as e:
             # Fallback to heuristic on LLM failure
+            print(f"[Warning] LLM generation failed ({e}), falling back to heuristic engine.")
             pass
 
     return _generate_via_heuristic(title, text, source_url)
 
 
-def _generate_via_llm(title: str, text: str, api_key: str, source_url: str) -> QuizSet:
+def _generate_via_llm(
+    title: str,
+    text: str,
+    api_key: str,
+    source_url: str,
+    model: str = "nvidia/llama-3.1-nemotron-70b-instruct:free",
+) -> QuizSet:
     """Call OpenRouter API to generate high-quality quiz JSON."""
     endpoint = "https://openrouter.ai/api/v1/chat/completions"
     truncated_text = text[:4000]  # keep prompt concise
@@ -75,7 +83,7 @@ Rules:
     }
 
     payload = {
-        "model": "meta-llama/llama-3.2-3b-instruct:free",
+        "model": model,
         "messages": [{"role": "user", "content": prompt}],
         "response_format": {"type": "json_object"},
     }

@@ -126,6 +126,18 @@ def render_mode_selection() -> None:
         )
         st.session_state["api_key"] = api_key
 
+        model_choices = [
+            "nvidia/llama-3.1-nemotron-70b-instruct:free",
+            "nvidia/nemotron-3-ultra",
+            "meta-llama/llama-3.2-3b-instruct:free",
+            "google/gemini-2.0-flash-exp:free",
+            "Custom Model",
+        ]
+        choice = st.selectbox("LLM Model (Free Tier)", options=model_choices, index=0)
+        if choice == "Custom Model":
+            choice = st.text_input("Model Slug", value="nvidia/nemotron-3-ultra")
+        st.session_state["model"] = choice
+
         st.divider()
         st.subheader("⚡ Kiro Capabilities")
         st.success("Power: `web-quiz-power` Active")
@@ -177,6 +189,7 @@ def render_mode_selection() -> None:
                             text=body,
                             api_key=st.session_state.get("api_key"),
                             source_url=input_url.strip(),
+                            model=st.session_state.get("model", "nvidia/llama-3.1-nemotron-70b-instruct:free"),
                         )
                         st.session_state["quiz_set"] = quiz_set
                         st.session_state["page"] = PAGE_QUIZ
@@ -211,6 +224,7 @@ def render_mode_selection() -> None:
                         title=custom_title,
                         text=custom_text,
                         api_key=st.session_state.get("api_key"),
+                        model=st.session_state.get("model", "nvidia/llama-3.1-nemotron-70b-instruct:free"),
                     )
                     st.session_state["quiz_set"] = quiz_set
                     st.session_state["page"] = PAGE_QUIZ
