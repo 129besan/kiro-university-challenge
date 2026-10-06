@@ -85,11 +85,19 @@ Rules:
     payload = {
         "model": model,
         "messages": [{"role": "user", "content": prompt}],
-        "response_format": {"type": "json_object"},
     }
 
-    resp = requests.post(endpoint, headers=headers, json=payload, timeout=25)
-    resp.raise_for_status()
+    resp = requests.post(endpoint, headers=headers, json=payload, timeout=30)
+    if not resp.ok:
+        err_msg = resp.text
+        try:
+            err_json = resp.json()
+            if "error" in err_json and "message" in err_json["error"]:
+                err_msg = err_json["error"]["message"]
+        except Exception:
+            pass
+        raise RuntimeError(f"OpenRouter API error ({resp.status_code}): {err_msg}")
+
     res_data = resp.json()
     content = res_data["choices"][0]["message"]["content"]
     
