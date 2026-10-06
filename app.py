@@ -133,18 +133,12 @@ def render_mode_selection() -> None:
         )
         st.session_state["api_key"] = api_key
 
-        model_choices = [
-            "openrouter/free",
-            "nvidia/nemotron-3-ultra-550b-a55b:free",
-            "nvidia/llama-3.1-nemotron-70b-instruct:free",
-            "meta-llama/llama-3.2-3b-instruct:free",
-            "google/gemini-2.0-flash-exp:free",
-            "Custom Model",
-        ]
-        choice = st.selectbox("LLM Model (Free Tier)", options=model_choices, index=0)
-        if choice == "Custom Model":
-            choice = st.text_input("Model Slug", value="nvidia/nemotron-3-ultra-550b-a55b:free")
-        st.session_state["model"] = choice
+        model_input = st.text_input(
+            "LLM Model (OpenRouter)",
+            value="openrouter/free",
+            help="Default: 'openrouter/free' automatically routes to the best available free model. You can also specify any custom model slug.",
+        )
+        st.session_state["model"] = model_input.strip() or "openrouter/free"
 
         st.divider()
         st.subheader("⚡ Kiro Capabilities")

@@ -20,7 +20,7 @@ def generate_quiz_from_text(
     text: str,
     api_key: str | None = None,
     source_url: str = "Web Article",
-    model: str = "nvidia/llama-3.1-nemotron-70b-instruct:free",
+    model: str = "openrouter/free",
 ) -> QuizSet:
     """Generate a QuizSet from article text.
 
@@ -43,7 +43,7 @@ def _generate_via_llm(
     text: str,
     api_key: str,
     source_url: str,
-    model: str = "nvidia/llama-3.1-nemotron-70b-instruct:free",
+    model: str = "openrouter/free",
 ) -> QuizSet:
     """Call OpenRouter API to generate high-quality quiz JSON."""
     endpoint = "https://openrouter.ai/api/v1/chat/completions"
